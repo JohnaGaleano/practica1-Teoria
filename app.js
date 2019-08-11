@@ -1,4 +1,4 @@
-Fragment = require('./lib/fragment');
+Automata = require('./automata/automata');
 const argv = require('./config/yargs').argv;
 var colors = require('colors');
 
@@ -9,14 +9,14 @@ let comando = argv._[0];
 if (comando == 'automata') {
     console.log(`Estas procesando un automata \n`.green);
 
-    let binary = new Fragment({
+    let binary = new Automata({
         initial: argv.Estadoinicial
         , accept: argv.EstadoAceptacion
         , transitions: argv.table
     });
 
     if (argv.test) {
-        console.log('Prueba con la hilera ' + argv.test);
+        console.log('Prueba con la hilera: '.cyan + argv.test);
         if (binary.test(argv.test)) {
             console.log('La hilera es valida \n'.green);
         } else {

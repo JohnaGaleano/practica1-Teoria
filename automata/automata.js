@@ -1,4 +1,4 @@
-var Fragment
+var Automata
   , StateMachine = require('./machine')
   , _minimize = require('./minimize')
   , string2dfa = require('./string2dfa')
@@ -9,27 +9,27 @@ var Fragment
 * pretty expensive. There should be an option that
 * doesn't require such stringent checking.
 */
-Fragment = function Fragment (def, acceptName) {
+Automata = function Automata(def, acceptName) {
 
-  // OK to be a string literal, we'll construct a fragment from that
-  if(typeof def == 'string') {
+  // OK to be a string literal, we'll construct a Automata from that
+  if (typeof def == 'string') {
     def = string2dfa(def, acceptName)
   }
   // This is a shorthanded special case: the EOF character
-  else if(def === -1) {
+  else if (def === -1) {
     def = {
       initial: 0
-    , accept: [1]
-    , transitions: {
+      , accept: [1]
+      , transitions: {
         0: [-1, 1]
-      , 1: []
+        , 1: []
       }
     }
   }
 
   var err = this.validate(def)
 
-  if(err !== true) {
+  if (err !== true) {
     throw err
   }
 
@@ -39,60 +39,60 @@ Fragment = function Fragment (def, acceptName) {
 
 }
 
-Fragment.prototype.copy = function copy () {
+Automata.prototype.copy = function copy() {
   return {
     initial: this.initial
-  , accept: JSON.parse(JSON.stringify(this.accept))
-  , transitions: JSON.parse(JSON.stringify(this.transitions))
+    , accept: JSON.parse(JSON.stringify(this.accept))
+    , transitions: JSON.parse(JSON.stringify(this.transitions))
   }
 }
 
-Fragment.prototype.toDfa = function toDfa (delimiter) {
+Automata.prototype.toDfa = function toDfa(delimiter) {
   return nfa2dfa(this.copy(), delimiter)
 }
 
-Fragment.prototype.minimize = function minimize (delimiter) {
+Automata.prototype.minimize = function minimize(delimiter) {
   return _minimize(this.toDfa(delimiter))
 }
 
-Fragment.prototype.validate = function validate (def) {
+Automata.prototype.validate = function validate(def) {
 
   var i, ii, k
 
-  if(!def) {
-    return new Error('Fragment needs a definition')
+  if (!def) {
+    return new Error('Automata needs a definition')
   }
 
-  if(def.initial == null) {
-    return new Error('Fragment needs an initial state')
+  if (def.initial == null) {
+    return new Error('Automata needs an initial state')
   }
 
-  if(!Array.isArray(def.accept)) {
-    return new Error('Fragment must have an array of accepted states')
+  if (!Array.isArray(def.accept)) {
+    return new Error('Automata must have an array of accepted states')
   }
 
-  if(def.transitions == null) {
-    return new Error('Fragment must have a map of transitions')
+  if (def.transitions == null) {
+    return new Error('Automata must have a map of transitions')
   }
 
   // Make sure that accept states are in transitions
-  for(i=0, ii=def.accept.length; i<ii; ++i) {
-    if(def.transitions[def.accept[i]] == null) {
+  for (i = 0, ii = def.accept.length; i < ii; ++i) {
+    if (def.transitions[def.accept[i]] == null) {
       return new Error('Accept state "' + def.accept[i] +
         '" does not exist in the transition map')
     }
   }
 
   // Make sure that transition states are in transitions
-  for(k in def.transitions) {
-    if(!Array.isArray(def.transitions[k])) {
+  for (k in def.transitions) {
+    if (!Array.isArray(def.transitions[k])) {
       return new Error('The transitions for ' + k + ' must be an array')
     }
 
-    for(i=1, ii=def.transitions[k].length; i<ii; i += 2) {
-      if(def.transitions[def.transitions[k][i]] == null) {
-      return new Error('Transitioned to ' + def.transitions[k][i] +
-        ', which does not exist in the transition map')
+    for (i = 1, ii = def.transitions[k].length; i < ii; i += 2) {
+      if (def.transitions[def.transitions[k][i]] == null) {
+        return new Error('Transitioned to ' + def.transitions[k][i] +
+          ', which does not exist in the transition map')
       }
     }
   }
@@ -102,14 +102,14 @@ Fragment.prototype.validate = function validate (def) {
 }
 
 /**
-* Simulates this fragment on the input
+* Simulates this Automata on the input
 */
-Fragment.prototype.test = function test (input) {
+Automata.prototype.test = function test(input) {
   return new StateMachine(this.minimize()).accepts(input)
 }
 
-Fragment.prototype.concat = function concat (other) {
-  other = new Fragment(other.copy())
+Automata.prototype.concat = function concat(other) {
+  other = new Automata(other.copy())
 
   // When joining a to b, b should disambiguate itself from a
   other._resolveCollisions(this)
@@ -117,12 +117,12 @@ Fragment.prototype.concat = function concat (other) {
   var bInitial = other.initial
 
   // Point the final states of a to the initial state of b
-  for(var i=0, ii=this.accept.length; i<ii; ++i) {
+  for (var i = 0, ii = this.accept.length; i < ii; ++i) {
     this.transitions[this.accept[i]].push('\0', bInitial)
   }
 
   // Add all transitions from b to a
-  for(var k in other.transitions) {
+  for (var k in other.transitions) {
     this.transitions[k] = other.transitions[k]
   }
 
@@ -131,8 +131,8 @@ Fragment.prototype.concat = function concat (other) {
   return this
 }
 
-Fragment.prototype.union = function union (other) {
-  other = new Fragment(other.copy())
+Automata.prototype.union = function union(other) {
+  other = new Automata(other.copy())
 
   // When joining a to b, b should disambiguate itself from a
   other._resolveCollisions(this)
@@ -144,7 +144,7 @@ Fragment.prototype.union = function union (other) {
     , oldInitial = this.initial
 
   // Watch for collisions in both sides!
-  while(this._hasState(newStateKey)) {
+  while (this._hasState(newStateKey)) {
     suffix = suffix + '`'
     newStateKey = original + suffix
   }
@@ -155,7 +155,7 @@ Fragment.prototype.union = function union (other) {
   this.transitions[this.initial] = ['\0', oldInitial, '\0', other.initial]
 
   // Add all transitions from b to a
-  for(var k in other.transitions) {
+  for (var k in other.transitions) {
     this.transitions[k] = other.transitions[k]
   }
 
@@ -168,7 +168,7 @@ Fragment.prototype.union = function union (other) {
 * Check out: https://cloudup.com/c64GMr1lTFj
 * Source: http://courses.engr.illinois.edu/cs373/sp2009/lectures/lect_06.pdf
 */
-Fragment.prototype.repeat = function repeat () {
+Automata.prototype.repeat = function repeat() {
 
   // Create a new initial state
   var original = 'repeat'
@@ -180,13 +180,13 @@ Fragment.prototype.repeat = function repeat () {
 
   newStateKey = original + suffix
 
-  while(this._hasState(newStateKey)) {
+  while (this._hasState(newStateKey)) {
     suffix = suffix + '`'
     newStateKey = original + suffix
   }
 
   // Point the final states to the initial state of b
-  for(var i=0, ii=this.accept.length; i<ii; ++i) {
+  for (var i = 0, ii = this.accept.length; i < ii; ++i) {
     this.transitions[this.accept[i]].push('\0', this.initial)
   }
 
@@ -198,23 +198,23 @@ Fragment.prototype.repeat = function repeat () {
   return this
 }
 
-Fragment.prototype.states = function states () {
+Automata.prototype.states = function states() {
   return Object.keys(this.transitions)
 }
 
 /**
 * Resolves collisions with `other` by renaming `this`'s states
 */
-Fragment.prototype._resolveCollisions = function _resolveCollisions (other) {
+Automata.prototype._resolveCollisions = function _resolveCollisions(other) {
   var states = other.states()
     , needle
     , original
     , suffix
 
-  for(var i=0, ii=states.length; i<ii; ++i) {
+  for (var i = 0, ii = states.length; i < ii; ++i) {
     needle = states[i]
 
-    if(!this._hasState(needle)) {
+    if (!this._hasState(needle)) {
       continue
     }
 
@@ -223,7 +223,7 @@ Fragment.prototype._resolveCollisions = function _resolveCollisions (other) {
 
     needle = original + suffix
 
-    while(this._hasState(needle)) {
+    while (this._hasState(needle)) {
       suffix = suffix + '`'
       needle = original + suffix
     }
@@ -234,42 +234,42 @@ Fragment.prototype._resolveCollisions = function _resolveCollisions (other) {
   return true
 }
 
-Fragment.prototype._hasState = function _hasState (needle) {
+Automata.prototype._hasState = function _hasState(needle) {
   return this.transitions[needle] != null
 }
 
 /**
 * Renames the state `from` to `to`
 */
-Fragment.prototype._renameState = function _renameState (from, to) {
+Automata.prototype._renameState = function _renameState(from, to) {
   var t = this.transitions[from]
     , i = 0
     , ii = 0
 
-  if(t == null) {
+  if (t == null) {
     throw new Error('The state ' + from + ' does not exist')
   }
 
-  if(this.initial == from) {
+  if (this.initial == from) {
     this.initial = to
   }
 
   delete this.transitions[from]
   this.transitions[to] = t
 
-  for(var k in this.transitions) {
-    for(i=1, ii=this.transitions[k].length; i<ii; i += 2) {
-      if(this.transitions[k][i] == from) {
+  for (var k in this.transitions) {
+    for (i = 1, ii = this.transitions[k].length; i < ii; i += 2) {
+      if (this.transitions[k][i] == from) {
         this.transitions[k][i] = to
       }
     }
   }
 
-  for(i=0, ii=this.accept.length; i<ii; ++i) {
-    if(this.accept[i] == from) {
+  for (i = 0, ii = this.accept.length; i < ii; ++i) {
+    if (this.accept[i] == from) {
       this.accept[i] = to
     }
   }
 }
 
-module.exports = Fragment
+module.exports = Automata
