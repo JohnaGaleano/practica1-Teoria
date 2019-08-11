@@ -1,7 +1,8 @@
 const opt = {
     Estadoinicial: {
         demand: true,
-        alias: 'i'
+        alias: 'i',
+        type: Array
     },
     EstadoAceptacion: {
         demand: true,
@@ -11,7 +12,7 @@ const opt = {
         demand: true,
         alias: 't'
     }
-}
+};
 
 const argv = require('yargs')
     .command('automata', 'Procesar un automata', opt)
