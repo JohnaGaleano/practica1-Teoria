@@ -11,6 +11,9 @@ const opt = {
     table: {
         demand: true,
         alias: 't'
+    },
+    test: {
+        alias: 'p'
     }
 };
 
