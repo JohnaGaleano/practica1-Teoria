@@ -17,9 +17,10 @@ if (comando == 'automata') {
 
     if (argv.test) {
         console.log('Prueba con la hilera ' + argv.test);
-        if (binary.test(argv.test)){
-            console.log('La hilera es valida \n'.green); 
-        } else{console.log('La hilera no es valida \n'.red);
+        if (binary.test(argv.test)) {
+            console.log('La hilera es valida \n'.green);
+        } else {
+            console.log('La hilera no es valida \n'.red);
         }
     }
 
@@ -38,12 +39,12 @@ if (comando == 'automata') {
 
         if (AFD) {
             console.log('El automata ingresado es AFD \n'.blue);
-        } else{
+        } else {
             console.log('El automata ingresado es AFND \n'.blue);
             console.log('Se procede a su forma Deterministica simplificada:'.green);
-            
+
         }
-    
+
         console.log('Tabla de transiciones simplificada (La propiedad *transitions*): '.red);
         console.log(binary.minimize());
     }
@@ -54,16 +55,16 @@ if (comando == 'automata') {
     // node app.js automata -i=1 -a=5 -a=5 -t.1=a -t.1=2 -t.2=a -t.2=3 -t.3=b -t.3=4 -t.4=b -t.4=5 -t.5=b -t.5=5 -t.6='*0' -t.6=2 
 
 }
-//En caso de no saber que hacer
+//En caso de un error en el comando para procesar un automata
 else {
-    console.log('Debes ingresar: blablabla'.blue);
-
+    console.log(
+    'Para ingresar un automata por medio de una trabla de transicion seria de la siguiente forma: \n \n'.magenta +
+    'Ejecutar archivo principal:'.green + ' node app.js \n'.cyan + 
+    'bandera para procesar un automata:'.green + ' automata \n'.cyan + 
+    'Banderas de la entrada de los datos: \n'.green + 
+    'Estado inicial:'.green + ' -i=1 \n'.cyan  + 
+    'Estado de aceptación:'.green + ' -a=5 -a=5 \n'.cyan + 
+    'Tabla de transiciones:'.green + ' -t.1=a -t.1=2 -t.2=a -t.2=3 -t.3=b -t.3=4 -t.4=b -t.4=5 -t.5=b -t.5=5 \n\n'.cyan +
+    'Ejemplo de un comando completo: \n '.green + 
+    'node app.js automata -i=1 -a=5 -a=5 -t.1=a -t.1=2 -t.2=a -t.2=3 -t.3=b -t.3=4 -t.4=b -t.4=5 -t.5=b -t.5=5'.cyan);
 }
-
-// transitions: {
-//     0: ['1',  1]
-//   , 1: ['0',  2]
-//   , 2: ['1',  3]
-//   , 3: ['0',  4]
-//   , 4: [] // accept state
-//   }

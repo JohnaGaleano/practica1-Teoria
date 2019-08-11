@@ -18,7 +18,7 @@ const opt = {
 };
 
 const argv = require('yargs')
-    .command('automata', 'Procesar un automata', opt)
+    .command('automata', 'Procesar un automata con las opciones de -t para realizar una pruba de una hilera determinada', opt)
     .command('ayuda', 'Instrucciones de uso de la aplicación')
     .help()
     .argv

@@ -1,21 +1,5 @@
 # Finite Automata
-
-An unfancy JavaScript state machine for your more ambitious project.
-
-[![Build Status](https://travis-ci.org/ben-ng/finite-automata.svg?branch=master)](https://travis-ci.org/ben-ng/finite-automata)
-
-[![browser support](https://ci.testling.com/ben-ng/finite-automata.png)
-](https://ci.testling.com/ben-ng/finite-automata)
-
-## Features
-
- * Concatenation `/ab/`
- * Union `/a|b/`
- * Repetition `/a*/` (Kleene Closure)
- * Simulation on input `/ab/.test('haystack')`
- * NFA to DFA conversion (via Powerset Construction)
- * DFA minimization (via Partitioning)
- * 100% branch and statement coverage
+ 
 
 ## Usage
 
@@ -43,11 +27,11 @@ t.ok(!fragment1.test('ababba'), 'Should not accept ababba')
 
 ## Fragment
 
-There are three ways to construct a fragment.
+There are thrlet message = binary.test('010')
 
-#### Fragment({initial, accept, transitions})
+#### Fragment
 
-```javascript
+```javascriptconsole.log(message);
 // Matches the string "1010"
 var binary = new Fragment({
       initial: 0
@@ -60,7 +44,9 @@ var binary = new Fragment({
       , 4: [] // accept state
       }
     })
-```
+```let message = binary.test('010')
+
+console.log(message);
 
 A fragment is a finite automaton constructed with `initial` state, `accept` state(s), and a `transitions` map.
 
@@ -88,9 +74,13 @@ Notes:
 
 You can perform operations on two fragments even if their states collide. Collisions will be resolved by appending the '\`' character.
 
-#### Fragment(-1)
+#### Fragmentlet message = binary.test('010')
 
-```javascript
+console.log(message);
+
+```javascriptlet message = binary.test('010')
+
+console.log(message);
 // Matches the end of file in a shorthand way
 var EOF = new Fragment(-1)
 
@@ -118,9 +108,9 @@ a.concat(b)
 Modifies the original fragment by concatening the argument.
 
 #### Fragment.union()
+let message = binary.test('010')
 
-```javascript
-
+console.log(message);
 // a and b are Fragments
 a.union(b)
 
@@ -149,7 +139,9 @@ Modifies the fragment, allowing it to be repeated n times where n >= 0.
 
 ```javascript
 
-// a is a fragment
+// a is a fragmentlet message = binary.test('010')
+
+console.log(message);
 a.test('haystack')
 
 // RegExp equivalent
