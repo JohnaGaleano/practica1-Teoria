@@ -7,7 +7,7 @@ let comando = argv._[0];
 
 //Validación si el usuario esta interesado en procesar un automatas
 if (comando == 'automata') {
-    console.log(`Quieres procesar un automata`.green);
+    console.log(`Estas procesando un automata \n`.green);
 
     let binary = new Fragment({
         initial: argv.Estadoinicial
@@ -18,35 +18,37 @@ if (comando == 'automata') {
     if (argv.test) {
         console.log('Prueba con la hilera ' + argv.test);
         if (binary.test(argv.test)){
-            console.log('La hilera es valida'.green); 
-        } else{console.log('La hilera no es valida'.red);
+            console.log('La hilera es valida \n'.green); 
+        } else{console.log('La hilera no es valida \n'.red);
         }
     }
 
-    console.log(`Minimizacion: `);
-    console.log(binary.minimize());
+    else {
 
-    for (const key in argv.table) {
-        if (argv.table[key][0] == '*0') {
-            console.log('Si hay *0');
+        let AFD = true
+
+        for (const key in argv.table) {
+            if (argv.table[key][0] == '*0') {
+                AFD = false
+            }
+            else {
+                AFD = true
+            }
         }
-        else {
-            console.log('Es AFD');
+
+        if (AFD) {
+            console.log('El automata ingresado es AFD \n'.blue);
+        } else{
+            console.log('El automata ingresado es AFND \n'.blue);
+            console.log('Se procede a su forma Deterministica simplificada:'.green);
+            
         }
-        // console.log( argv.table[key][0]);
+    
+        console.log('Tabla de transiciones simplificada (La propiedad *transitions*): '.red);
+        console.log(binary.minimize());
     }
 
 
-
-
-
-    let a = argv.EstadoAceptacion;
-    // console.log(`Estado A: `);
-    // console.log(a);
-
-    let table = argv.table;
-    // console.log(`Tabla :`);
-    // console.log(table);
 
     // node app.js automata -i=1 -a=5 -a=5 -t.1=a -t.1=2 -t.2=a -t.2=3 -t.3=b -t.3=4 -t.4=b -t.4=5 -t.5=b -t.5=5  
     // node app.js automata -i=1 -a=5 -a=5 -t.1=a -t.1=2 -t.2=a -t.2=3 -t.3=b -t.3=4 -t.4=b -t.4=5 -t.5=b -t.5=5 -t.6='*0' -t.6=2 
