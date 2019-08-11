@@ -1,28 +1,22 @@
 {
-  "name": "finite-automata",
+  "name": "Automatas finitos",
   "version": "3.4.1",
-  "description": "Unfancy state machine",
-  "main": "lib/fragment",
+  "description": "",
+  "main": "automatas",
   "scripts": {
-    "test": "node test",
-    "b": "node benchmark",
-    "bb": "browserify -t brfs benchmark/index.js > benchmark/bundle.js",
-    "profile": "node benchmark/v8/writeLexer && browserify -t brfs benchmark/v8/index.js > benchmark/v8/bundle.js && d8 --trace-opt --trace-deopt --prof benchmark/v8/bundle.js && mac-tick-processor v8.log && unlink v8.log && unlink benchmark/v8/bundle.js && unlink benchmark/v8/_lexer.js"
+    "test": "node test"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ben-ng/finite-automata.git"
+    "type": "git"
   },
   "keywords": [
     "dfa",
     "nfa"
   ],
-  "author": "Ben Ng <me@benng.me>",
+  "author": "Luis Ochoa - John Galeano",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ben-ng/finite-automata/issues"
   },
-  "homepage": "https://github.com/ben-ng/finite-automata",
   "dependencies": {
     "colors": "^1.3.3",
     "yargs": "^13.3.0"
@@ -31,16 +25,7 @@
     "tape": "2.x.x"
   },
   "testling": {
-    "files": "test/index.js",
-    "browsers": [
-      "ie/6..latest",
-      "chrome/22..latest",
-      "firefox/16..latest",
-      "safari/latest",
-      "opera/11.0..latest",
-      "iphone/6",
-      "ipad/6"
-    ]
+    "files": "test/index.js"
   },
   "directories": {
     "lib": "lib",
