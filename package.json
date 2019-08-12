@@ -15,8 +15,7 @@
   ],
   "author": "Luis Ochoa - John Galeano",
   "license": "MIT",
-  "bugs": {
-  },
+  "bugs": {},
   "dependencies": {
     "colors": "^1.3.3",
     "yargs": "^13.3.0"
@@ -24,8 +23,7 @@
   "devDependencies": {
     "tape": "2.x.x"
   },
-  "testling": {
-  },
+  "testling": {},
   "directories": {
     "lib": "lib",
     "test": "test"
