@@ -11,7 +11,6 @@ StateMachine.prototype._createTable = function _createTable (transitions) {
     , j = 0
     , jj = 0
     , chr = ''
-      // char is the column, state is the row
     , fastTable = {}
 
   for(k in transitions) {
@@ -31,7 +30,6 @@ StateMachine.prototype.accepts = function exec (input) {
 
   this._state = this._initial
 
-  // EOF Testing is a special thing
   if(input === -1) {
     return this._table[this._state][-1] != null &&
             this._accept.indexOf(this._table[this._state][-1]) > -1
@@ -55,4 +53,4 @@ StateMachine.prototype.accepts = function exec (input) {
   return this._accept.indexOf(this._state) >= 0
 }
 
-module.exports = StateMachine
+module.exports = StateMachine;
