@@ -60,7 +60,7 @@ else {
     console.log(
     'Para ingresar un automata por medio de una trabla de transicion seria de la siguiente forma: \n \n'.magenta +
     'Ejecutar archivo principal:'.green + ' node app.js \n'.cyan + 
-    'bandera para procesar un automata:'.green + ' automata \n'.cyan + 
+    'Bandera para procesar un automata:'.green + ' automata \n'.cyan + 
     'Banderas de la entrada de los datos: \n'.green + 
     'Estado inicial:'.green + ' -i=1 \n'.cyan  + 
     'Estado de aceptación:'.green + ' -a=5 -a=5 \n'.cyan + 

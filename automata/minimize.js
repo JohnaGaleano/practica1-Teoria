@@ -137,7 +137,7 @@ function minimize (dfa) {
 
       buildStateToGroupMap()
 
-      // DEsmarcando todo otra vez
+      // Desmarcando todo otra vez
       marks = new Array(groups.length)
       for(i=0, ii=marks.length; i<ii; ++i) {
         marks[i] = false
