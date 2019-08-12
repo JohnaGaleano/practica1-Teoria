@@ -25,7 +25,6 @@
     "tape": "2.x.x"
   },
   "testling": {
-    "files": "test/index.js"
   },
   "directories": {
     "lib": "lib",

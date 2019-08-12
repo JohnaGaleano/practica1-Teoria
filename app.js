@@ -58,13 +58,13 @@ if (comando == 'automata') {
 //En caso de un error en el comando para procesar un automata
 else {
     console.log(
-    'Para ingresar un automata por medio de una trabla de transicion seria de la siguiente forma: \n \n'.magenta +
-    'Ejecutar archivo principal:'.green + ' node app.js \n'.cyan + 
-    'Bandera para procesar un automata:'.green + ' automata \n'.cyan + 
-    'Banderas de la entrada de los datos: \n'.green + 
-    'Estado inicial:'.green + ' -i=1 \n'.cyan  + 
-    'Estado de aceptación:'.green + ' -a=5 -a=5 \n'.cyan + 
-    'Tabla de transiciones:'.green + ' -t.1=a -t.1=2 -t.2=a -t.2=3 -t.3=b -t.3=4 -t.4=b -t.4=5 -t.5=b -t.5=5 \n\n'.cyan +
-    'Ejemplo de un comando completo: \n '.green + 
-    'node app.js automata -i=1 -a=5 -a=5 -t.1=a -t.1=2 -t.2=a -t.2=3 -t.3=b -t.3=4 -t.4=b -t.4=5 -t.5=b -t.5=5'.cyan);
+        'Para ingresar un automata por medio de una trabla de transicion seria de la siguiente forma: \n \n'.magenta +
+        'Ejecutar archivo principal:'.green + ' node app.js \n'.cyan +
+        'Bandera para procesar un automata:'.green + ' automata \n'.cyan +
+        'Banderas de la entrada de los datos: \n'.green +
+        'Estado inicial:'.green + ' -i=1 \n'.cyan +
+        'Estado de aceptación:'.green + ' -a=5 -a=5 \n'.cyan +
+        'Tabla de transiciones:'.green + ' -t.1=a -t.1=2 -t.2=a -t.2=3 -t.3=b -t.3=4 -t.4=b -t.4=5 -t.5=b -t.5=5 \n\n'.cyan +
+        'Ejemplo de un comando completo: \n '.green +
+        'node app.js automata -i=1 -a=5 -a=5 -t.1=a -t.1=2 -t.2=a -t.2=3 -t.3=b -t.3=4 -t.4=b -t.4=5 -t.5=b -t.5=5'.cyan);
 }
