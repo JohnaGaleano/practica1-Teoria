@@ -1,5 +1,18 @@
 # Automatas finitos
  
+``` bash
+# archivo principal
+app.js
+```
+### Instalar las dependencias del proyecto:
+``` bash
+cd practica1-teoria
+npm install
+```
+
+### Ejecutar proyecto:
+``` bash
+node app.js
 
 ## Uso
 
